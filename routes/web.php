@@ -44,5 +44,15 @@ Route::prefix('admin')->group(function () {
         Route::resource('/kader', 'Admin\KaderController', [
             'as' => 'admin'
         ]);
+
+        // kategori
+        Route::resource('/kategori', 'Admin\CategoryController', [
+            'except' => ['show'], 'as' => 'admin'
+        ]);
+
+        // artikel
+        Route::resource('/blog', 'Admin\BlogController', [
+            'as' => 'admin'
+        ]);
     });
 });
