@@ -6,6 +6,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard &mdash; KAMIL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="shortcut icon" href="{{ asset('assets/img/kamil.png') }}" type="image/x-icon">
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -21,6 +22,8 @@
 
     <script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
+
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
 </head>
 
@@ -60,7 +63,7 @@
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
                         <a href="index.html">KAMIL BG</a>
-                    </div>
+                    </div>  
                     <div class="sidebar-brand sidebar-brand-sm">
                         <a href="index.html">KAMIL</a>
                     </div>
@@ -125,19 +128,19 @@
 
                         @can('genrate_surat.index')
                         <li class="{{ setActive('admin/surat/genrate') }}"><a class="nav-link"
-                                href="#"><i class="fas fa-envelope "></i>
+                                href="{{ route('admin.surat.genrate.index') }}"><i class="fas fa-envelope "></i>
                                 <span>Genrate Surat</span></a></li>
                         @endcan
 
                         @can('surat_masuk.index')
                         <li class="{{ setActive('admin/surat/masuk') }}"><a class="nav-link"
-                                href="#"><i class="fas fa-envelope-open    "></i>
+                                href="{{ route('admin.surat.masuk.index') }}"><i class="fas fa-envelope-open"></i>
                                 <span>Surat Masuk</span></a></li>
                         @endcan
 
                         @can('surat_keluar.index')
                         <li class="{{ setActive('admin/surat/keluar') }}"><a class="nav-link"
-                                href="#"><i class="fas fa-envelope-square    "></i>
+                                href="{{ route('admin.surat.keluar.index') }}"><i class="fas fa-envelope-square"></i>
                                 <span>Surat Keluar</span></a></li>
                         @endcan
 

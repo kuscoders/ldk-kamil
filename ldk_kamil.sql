@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5deb2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jan 10, 2021 at 08:16 PM
--- Server version: 8.0.22-0ubuntu0.20.04.3
--- PHP Version: 7.4.3
+-- Host: 127.0.0.1
+-- Generation Time: Feb 22, 2021 at 02:02 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -44,9 +43,9 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
+  `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -57,7 +56,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2021_01_05_130305_create_permission_tables', 1);
+(4, '2021_01_05_130305_create_permission_tables', 1),
+(5, '2021_01_27_103332_create_surats_table', 2);
 
 -- --------------------------------------------------------
 
@@ -66,9 +66,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `model_has_permissions` (
-  `permission_id` bigint UNSIGNED NOT NULL,
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint UNSIGNED NOT NULL
+  `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -78,9 +78,9 @@ CREATE TABLE `model_has_permissions` (
 --
 
 CREATE TABLE `model_has_roles` (
-  `role_id` bigint UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model_id` bigint UNSIGNED NOT NULL
+  `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -89,7 +89,8 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\User', 1),
-(1, 'App\\User', 2);
+(1, 'App\\User', 2),
+(1, 'App\\User', 6);
 
 -- --------------------------------------------------------
 
@@ -110,7 +111,7 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `permissions` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -178,7 +179,7 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 --
 
 CREATE TABLE `roles` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -191,7 +192,8 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'web', '2021-01-05 05:25:11', '2021-01-05 05:25:11'),
-(3, 'user', 'web', '2021-01-10 04:12:37', '2021-01-10 04:12:37');
+(3, 'user', 'web', '2021-01-10 04:12:37', '2021-01-10 04:12:37'),
+(4, 'example', 'web', '2021-02-04 03:38:20', '2021-02-04 03:38:20');
 
 -- --------------------------------------------------------
 
@@ -200,8 +202,8 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 --
 
 CREATE TABLE `role_has_permissions` (
-  `permission_id` bigint UNSIGNED NOT NULL,
-  `role_id` bigint UNSIGNED NOT NULL
+  `permission_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -249,6 +251,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (38, 1),
 (39, 1),
 (40, 1),
+(40, 3),
 (41, 1),
 (42, 1),
 (43, 1),
@@ -256,9 +259,90 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (45, 1),
 (46, 1),
 (47, 1),
+(47, 4),
 (48, 1),
-(40, 3),
-(48, 3);
+(48, 3),
+(48, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surats`
+--
+
+CREATE TABLE `surats` (
+  `id` int(10) NOT NULL,
+  `nomor_surat` int(255) NOT NULL,
+  `perihal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `deskripsi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tujuan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `thumbnail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `surats`
+--
+
+INSERT INTO `surats` (`id`, `nomor_surat`, `perihal`, `deskripsi`, `tujuan`, `thumbnail`, `created_at`, `updated_at`) VALUES
+(7, 9, 'Undangan', 'Musyawarah Kerjaaaa', 'Pembina', 'Capture.JPG-1613998348.jpg', '2021-02-06 02:04:23', '2021-02-22 04:52:28'),
+(8, 10, 'Undangan', 'Gema Ramadhan', 'Dosen', 'Capture.JPG-1613998189.jpg', '2021-02-06 21:54:48', '2021-02-22 04:49:49'),
+(10, 6, 'Undangan', 'Musyawarah Umum', 'FSLDK NUSRA', 'Capture.JPG-1613998126.jpg', '2021-02-20 10:39:06', '2021-02-22 04:48:46'),
+(11, 7, 'Undangan', 'Musyawarah Umum', 'DPO', 'Capture.JPG-1613998666.jpg', '2021-02-22 04:56:14', '2021-02-22 04:57:46');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_generates`
+--
+
+CREATE TABLE `surat_generates` (
+  `id` int(255) NOT NULL,
+  `nomor_surat` int(255) NOT NULL,
+  `perihal` varchar(255) NOT NULL,
+  `deskripsi` varchar(255) NOT NULL,
+  `tujuan` varchar(255) NOT NULL,
+  `tgl` date NOT NULL,
+  `thumbnail` varchar(255) NOT NULL,
+  `created_at` varchar(255) NOT NULL,
+  `updated_at` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surat_generates`
+--
+
+INSERT INTO `surat_generates` (`id`, `nomor_surat`, `perihal`, `deskripsi`, `tujuan`, `tgl`, `thumbnail`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Izin Kegiatan', 'Muswarah Umum', 'WR III', '2021-02-01', 'Capture.JPG-1613985315.jpg', '', '2021-02-22 09:15:15'),
+(8, 4, 'Peminjaman Ruangan', 'Musyawarah Kerja', 'WR II', '2021-02-21', 'Capture.JPG-1613919331.jpg', '2021-02-21 14:55:31', '2021-02-21 14:55:31'),
+(10, 8, 'Peminjaman Alat', 'Musyawarah Kerja', 'BAAK', '2021-02-17', 'Capture.JPG-1613984307.jpg', '2021-02-22 08:58:27', '2021-02-22 08:58:27'),
+(11, 6, 'Izin Kegiatan', 'Bersih-Bersih Musholla', 'WR III', '2021-02-22', 'Capture.JPG-1613989973.jpg', '2021-02-22 10:32:53', '2021-02-22 10:32:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_masuks`
+--
+
+CREATE TABLE `surat_masuks` (
+  `id` int(10) NOT NULL,
+  `asal` varchar(255) NOT NULL,
+  `nomor_surat` int(255) NOT NULL,
+  `tgl_masuk` date NOT NULL,
+  `deskripsi` varchar(255) NOT NULL,
+  `thumbnail` varchar(255) NOT NULL,
+  `created_at` varchar(255) NOT NULL,
+  `updated_at` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surat_masuks`
+--
+
+INSERT INTO `surat_masuks` (`id`, `asal`, `nomor_surat`, `tgl_masuk`, `deskripsi`, `thumbnail`, `created_at`, `updated_at`) VALUES
+(3, 'BEM', 3, '2021-01-02', 'Musyawarah Kerjaaa', 'Capture.JPG-1613990200.jpg', '2021-02-14 05:34:13', '2021-02-22 10:36:40'),
+(5, 'DPM', 6, '2021-02-22', 'Pergantian Pengurus', 'Capture.JPG-1613997194.jpg', '2021-02-22 12:33:14', '2021-02-22 12:33:14');
 
 -- --------------------------------------------------------
 
@@ -267,7 +351,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -283,7 +367,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'MUHAMMAD ZIAD ALFIAN', 'admin@gmail.com', NULL, '$2y$10$maZejtGTV2PPvyO3DtJRmeoJVMl3uhSjM6gGrzc3fIbDzLEXqgXAC', NULL, '2021-01-05 05:25:11', '2021-01-10 04:11:58'),
-(2, 'MUHAMAMD KUSWARI', 'muhammadkuswari@gmail.com', NULL, '$2y$10$YJaNq5D6dXat1nrc4g2XKOHDXstBXsFu9itj3yuOtLVLSTkZUx6ja', NULL, '2021-01-10 03:59:02', '2021-01-10 03:59:02');
+(2, 'MUHAMAMD KUSWARI', 'muhammadkuswari@gmail.com', NULL, '$2y$10$YJaNq5D6dXat1nrc4g2XKOHDXstBXsFu9itj3yuOtLVLSTkZUx6ja', NULL, '2021-01-10 03:59:02', '2021-01-10 03:59:02'),
+(6, 'HANA RAMDHANI', 'hanawesave@gmail.com', NULL, '$2y$10$dBfSI5kybTE5J3VyuFMmNuHf859TskcTq9qc3qCOEvLFgKDm50gk6', NULL, '2021-02-20 19:29:10', '2021-02-20 19:29:10');
 
 --
 -- Indexes for dumped tables
@@ -341,6 +426,24 @@ ALTER TABLE `role_has_permissions`
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
+-- Indexes for table `surats`
+--
+ALTER TABLE `surats`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `surat_generates`
+--
+ALTER TABLE `surat_generates`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `surat_masuks`
+--
+ALTER TABLE `surat_masuks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -355,31 +458,49 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `surats`
+--
+ALTER TABLE `surats`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `surat_generates`
+--
+ALTER TABLE `surat_generates`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `surat_masuks`
+--
+ALTER TABLE `surat_masuks`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
