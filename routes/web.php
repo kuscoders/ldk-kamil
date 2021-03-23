@@ -53,6 +53,17 @@ Route::prefix('admin')->group(function () {
         // artikel
         Route::resource('/blog', 'Admin\BlogController', [
             'as' => 'admin'
+
+
         ]);
+        
+        Route::prefix('galeries')->group(function () {
+            Route::get('','Admin\GalleryController@index');
+            Route::get('create','Admin\GalleryController@create');
+            Route::get('{id}','Admin\GalleryController@edit');
+            Route::post('store','Admin\GalleryController@store');
+            Route::get('delete/{id}','Admin\GalleryController@delete');
+            Route::post('update/{id}','Admin\GalleryController@update');
+        });
     });
 });
